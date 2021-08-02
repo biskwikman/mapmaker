@@ -2,9 +2,48 @@
     import * as L from 'leaflet';
     import '../node_modules/leaflet/dist/leaflet.css';
     import { onMount } from 'svelte';
-    import { place } from './stores.js'
+    import { place } from './stores.js';
+    import 'leaflet.vectorgrid';
 
     let div = null;
+
+    const pbfUrl = 'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf';
+
+    const vectorTileOptions = {
+        interactive: true,
+        vectorTileLayerStyles: {
+            boundary: {
+                weight: 0.2,
+                color: 'black'
+            },
+            coastline: {
+                weight: 0.2,
+                color: 'black'
+            },
+            contour: {
+                weight: 0.2,
+                color: 'brown'
+            },
+            boundary: {
+                weight: 0.2,
+                color: 'green'
+            },
+            label: {opacity: 0.0},
+            symbol: {opacity: 0.0},
+            river: {
+                weight: 0.2,
+                color: 'blue'
+            },
+            road: {
+                weight: 0.2,
+                color: 'black'
+            },
+            river: {
+                weight: 0.2,
+                color: 'blue'
+            }
+        }
+    };
 
     onMount(() => {
         let map = L.map(div, {
@@ -12,7 +51,11 @@
             zoom: 10
         });
 
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        // L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        const pbfLayer = L.vectorGrid.protobuf(pbfUrl,vectorTileOptions).on('click',function(e) {
+            console.log(e.layer);
+            L.DomEvent.stop(e);
+        }).addTo(map);
 
         map.fitBounds([
             ["20.2145811",
@@ -36,10 +79,28 @@
 </script>
 
 <style lang='scss'>
-    div {
-        display: flex;
-        align-items: center;
+    #grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-auto-rows: minmax(100px, auto);
+    }
+    .map-item {
+        grid-column: 2 / 12;
+        grid-row: 1 / 4;
+        width: 100%;
+    }
+
+    #map {
+        z-index: 1;
+    }
+
+    #map-cover {
+        pointer-events: none;
+        background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+        z-index: 2;
     }
 </style>
-
-<div bind:this={div} style="height: 50vh; width: 50%;"></div>
+<!-- <div id="grid"> -->
+    <div id="map-cover" class="map-item"></div>
+    <div bind:this={div} id='map' class="map-item"></div>
+<!-- </div> -->

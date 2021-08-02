@@ -19,6 +19,7 @@
 
 <input bind:value={locationInput} placeholder="enter a city or country">
 <button on:click={handleClick}>Search</button>
+
 {#await $place}
     <p>...waiting</p>
 {:then place}

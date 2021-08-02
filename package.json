@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear"
+    "start": "sirv public --single"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -21,7 +21,9 @@
   },
   "dependencies": {
     "leaflet": "^1.7.1",
+    "leaflet.vectorgrid": "^1.3.0",
     "sirv-cli": "^1.0.0",
-    "svelte-asyncable": "^2.0.3"
+    "svelte-asyncable": "^2.0.3",
+    "svelte-routing": "^1.6.0"
   }
 }
