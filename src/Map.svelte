@@ -2,44 +2,45 @@
     import * as L from 'leaflet';
     import '../node_modules/leaflet/dist/leaflet.css';
     import { onMount } from 'svelte';
-    import { place } from './stores.js'
+    import { place } from './stores/stores.js'
+    import { item } from './stores/stores.js';
+    import { get } from "svelte/store";
 
     let div = null;
 
     onMount(() => {
         let map = L.map(div, {
-            center: [17.385044, 78.486671],
-            zoom: 10
+            center: [35.68, 139.77],
+            zoom: 11
         });
 
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        document.getElementsByClassName( 'leaflet-control-attribution' )[0].style.display = 'none';
 
-        map.fitBounds([
-            ["20.2145811",
-            "135.8536855"],
-            ["35.8984245",
-            "154.205541"]
-        ]);
+        L.tileLayer('http://localhost:8080/styles/basic-preview/{z}/{x}/{y}.png').addTo(map);
 
+        // use map.flyTo(LatLng)
         place.subscribe(async () => {
             const returnedPlace = await $place;
-            const elementToInsert1 = returnedPlace[0].boundingbox[2];
-            const elementToInsert2 = returnedPlace[0].boundingbox[1];
-            returnedPlace[0].boundingbox.splice(1,2,elementToInsert1,elementToInsert2);
-            const bboxPart1 = returnedPlace[0].boundingbox.slice(0,2);
-            const bboxPart2 = returnedPlace[0].boundingbox.slice(2,4);
-            returnedPlace[0].boundingbox = [bboxPart1, bboxPart2]
-            console.log('reterned place',returnedPlace[0]);
-		    map.fitBounds(returnedPlace[0].boundingbox);
+            const center = [returnedPlace.features[0].geometry.coordinates[1],returnedPlace.features[0].geometry.coordinates[0]];
+            $item.center = center;
+            map.flyTo(center, 11);
 	    });
+
+        map.on('zoomend', function() {
+            $item.zoom = map.getZoom();
+            console.log(get(item));
+        });
+
     });
 </script>
 
 <style lang='scss'>
-    div {
+    #map {
         display: flex;
         align-items: center;
+        height: 70%;
+        aspect-ratio: 1/1.4142;
     }
 </style>
 
-<div bind:this={div} style="height: 50vh; width: 50%;"></div>
+<div id='map' bind:this={div}></div>
