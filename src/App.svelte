@@ -1,7 +1,8 @@
 <script>
-	import CitySearch from './CitySearch.svelte'
-	import Map from './Map.svelte';
-	import Navbar from './Navbar.svelte';
+	import CitySearch from './components/map/CitySearch.svelte'
+	import Map from './components/map/Map.svelte';
+	import Navbar from './components/Navbar.svelte';
+	import LayoutControl from './components/map/LayoutControl.svelte';
 	
 </script>
 
@@ -14,6 +15,7 @@
 		
 		<div id='right'>
 			<CitySearch/>
+			<LayoutControl/>
 		</div>
 	</div>
 
@@ -24,6 +26,7 @@
 		width: 100%;
 		height: 93vh;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}

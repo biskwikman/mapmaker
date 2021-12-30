@@ -10,6 +10,13 @@ export const place = asyncable(async () => {
     return data;
 });
 
-export const cart = writable({});
+export const cart = writable([]);
 
 export const item = writable({});
+
+export const layout = writable({
+    lineLength: 'line-short',
+    backgroundStyle: 'overlay-solid'
+});
+
+export const map = writable();

@@ -1,6 +1,7 @@
 <script>
-    import { place } from './stores/stores.js';
-    import { cart } from './stores/stores.js';
+    import { place } from '../../stores/stores.js';
+    import { cart } from '../../stores/stores.js';
+    import { item } from '../../stores/stores.js'
 
     let locationInput = 'tokyo';
 
@@ -10,15 +11,14 @@
         const data = await response.json();
         place.set(data);
     }
+    
     const onEnter = e => {
         if (e.charCode === 13) onSearchClick();
     }
 
     const onAddToCartClick = () => {
-        cart.update(n => {
-        console.log('test');
-        console.log(n);
-        })
+        const itemVal = Object.assign({},$item);
+        $cart = [...$cart, itemVal];
     }
     
 </script>
@@ -35,13 +35,5 @@
     placeholder="enter a city or country"
 />
 <button on:click={onSearchClick}>Search</button>
-{#await $place}
-    <p>...waiting</p>
-{:then place}
-    <p>{place[0]}</p>
-{:catch error}
-    <p>{error.message}</p>
-{/await}
-
 <button on:click={onAddToCartClick}>Add to cart</button>
 </div>
