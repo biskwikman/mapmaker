@@ -17,9 +17,9 @@ const startDragging = () => {
 <div class='border-left'></div>
 <div class='border-bottom'></div>
 <div id= 'text-background' class={$layout.backgroundStyle} on:mouseenter="{stopDragging}" on:mouseleave="{startDragging}">
-<h2 id='city-text' contenteditable="true" bind:innerHTML={$item.placeName}></h2>
+<h2 style='font-family: {$layout.fontFamily}' id='city-text' contenteditable="true" bind:innerHTML={$item.placeName}></h2>
 <hr class={$layout.lineLength}>
-<h3 id='country-text' contenteditable="true" bind:innerHTML={$item.countryName}></h3>
+<h3 style='font-family: {$layout.fontFamily}' id='country-text' contenteditable="true" bind:innerHTML={$item.countryName}></h3>
 
 </div>
 
@@ -28,7 +28,8 @@ const startDragging = () => {
 $backgroundColor: white;
 $fadeColor: rgb(255, 255, 255);
 $clearColor: rgba($fadeColor, 0);
-$backgroundFade: linear-gradient(to top, $fadeColor, $fadeColor, 90%,$clearColor);
+$backgroundFadeBottom: linear-gradient(to top, $fadeColor, $fadeColor, 90%,$clearColor);
+$backgroundFadeTop: linear-gradient(to bottom, $fadeColor, $fadeColor, 90%,$clearColor);
 $mapHeight: 80%;
 $borderWidth: 20px;
 
@@ -91,9 +92,12 @@ $borderWidth: 20px;
     @include textBackground();
     background-color: $backgroundColor;
     top: 0;
+    #city-text {
+        @include layoutText($marginTop: 30px)
+    }
 }
 
-.overlay-solid {
+.overlay-solid-bottom {
     @include textBackground();
     background-color: $backgroundColor;
     #city-text {
@@ -101,11 +105,20 @@ $borderWidth: 20px;
     }
 }
 
-.overlay-fade {
+.overlay-fade-bottom {
     @include textBackground();
-    background-image: $backgroundFade;
+    background-image: $backgroundFadeBottom;
     #city-text {
         @include layoutText($marginTop: 10px);
+    }
+}
+
+.overlay-fade-top {
+    @include textBackground();
+    background-image: $backgroundFadeTop;
+    top: 0;
+    #city-text {
+        @include layoutText($marginTop: 30px);
     }
 }
 

@@ -16,7 +16,8 @@ export const item = writable({});
 
 export const layout = writable({
     lineLength: 'line-short',
-    backgroundStyle: 'overlay-solid'
+    backgroundStyle: 'overlay-solid-bottom',
+    fontFamily: 'Arial',
 });
 
 export const map = writable();
