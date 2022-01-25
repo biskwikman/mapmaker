@@ -1,7 +1,5 @@
 <script>
     import { place } from '../../stores/stores.js';
-    import { cart } from '../../stores/stores.js';
-    import { item } from '../../stores/stores.js'
 
     let locationInput = 'tokyo';
 
@@ -15,17 +13,14 @@
     const onEnter = e => {
         if (e.charCode === 13) onSearchClick();
     }
-
-    const onAddToCartClick = () => {
-        const itemVal = Object.assign({},$item);
-        $cart = [...$cart, itemVal];
-    }
     
 </script>
 
 <style>
-    #container {
-        margin: 20px 20px 20px 20px;
+    #container > * {
+        float: left;
+        margin-left: 10px;
+        height: 30px;
     }
 </style>
 <div id='container'>
@@ -35,5 +30,4 @@
     placeholder="enter a city or country"
 />
 <button on:click={onSearchClick}>Search</button>
-<button on:click={onAddToCartClick}>Add to cart</button>
 </div>

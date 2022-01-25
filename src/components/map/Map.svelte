@@ -1,5 +1,6 @@
 <script>
     import * as L from 'leaflet';
+    // import {Map, NavigationControl} from 'maplibre-gl';
     import '../../../node_modules/leaflet/dist/leaflet.css';
     import { onMount } from 'svelte';
     import { place, item, map } from '../../stores/stores.js';
@@ -19,8 +20,8 @@
         document.getElementsByClassName( 'leaflet-control-attribution' )[0].style.display = 'none';
 
         // Tiles
-        // L.tileLayer('http://localhost:8080/styles/basic-preview/{z}/{x}/{y}.png').addTo(map);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo($map); //osm
+        L.tileLayer('http://localhost:8080/styles/toner/{z}/{x}/{y}@2x.webp').addTo($map);
+        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo($map);
 
         place.subscribe(async () => {
             const returnedPlace = await $place;
@@ -41,11 +42,21 @@
             console.log($item.placeName);
         }, false);
 
+        // $map = new Map({
+        //     container: div,
+        //     style: 'http://localhost:8080/styles/toner/{z}/{x}/{y}.png',
+        //     // accessToken: 'pk.eyJ1IjoiYmlza3dpa21hbiIsImEiOiJjaWxidzVlcGQxcmtxdWJrbjQ2Zng3bWN5In0.KcfLaovMGcEZkl6cyU6_Hw',
+        //     center: [139.77, 35.68],
+        //     zoom: 11,
+        //     attributionControl: false
+        // });
+        // $map.addControl(new NavigationControl(), 'top-left');
+
     });
 </script>
 
 <style lang='scss'>
-    $mapHeight: 80%;
+    $mapHeight: 95%;
 
     #map {
         display: flex;

@@ -77,5 +77,18 @@ const makeSolid = () => {
     .selected {
         color: white;
         background-color:rgb(94, 111, 190);
+        box-shadow: inset 2px 2px 3px rgb(56, 56, 56);
     }
+
+    button {
+        box-shadow: 2px 2px 3px rgb(75, 75, 75);
+    }
+
+    button:active {
+		position: relative;
+		top: 2px;
+		left: 2px;
+        background-color:rgb(94, 111, 190);
+		box-shadow: inset 2px 2px 2px rgb(48, 48, 48);
+	}
 </style>
