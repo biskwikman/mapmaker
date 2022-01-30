@@ -8,5 +8,4 @@ import { cart } from '../stores/stores.js';
 <main>
 	<Navbar/>
     <CartItems/>
-    <p>{$cart}</p>
 </main>

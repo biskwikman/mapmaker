@@ -7,14 +7,25 @@ let lon,lat,zoom;
 
 if ($cart.length >= 1) {
     cartFilled = true;
-    lon = $cart[0].center[1];
-    lat = $cart[0].center[0];
-    zoom = $cart[0].zoom;
 } else cartFilled = false;
 
-console.log('cart',$cart);
 </script>
 
 {#if cartFilled === true}
-<img alt='first item in cart' src='http://localhost:8080/styles/toner/static/{lon},{lat},{zoom}/210x297@2x.jpg'>
+{#each $cart as item, i}
+<span>
+    <!-- multiple items all have center on tokyo for some reason -->
+   {i} <img class='cart-item' alt='first item in cart' src='http://localhost:8080/styles/toner/static/{item.center[1]},{item.center[0]},{item.zoom}/210x297@2x.jpg'>
+</span>
+{/each}
 {/if}
+
+<style>
+    span {
+        display: inline-block;
+    }
+    .cart-item {
+        margin: 10px;
+        width: 50%;
+    }
+</style>

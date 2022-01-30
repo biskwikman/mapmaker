@@ -25,7 +25,6 @@
 
         place.subscribe(async () => {
             const returnedPlace = await $place;
-            console.log(returnedPlace);
             const center = [returnedPlace.features[0].geometry.coordinates[1],returnedPlace.features[0].geometry.coordinates[0]];
             $item.center = center;
             $item.placeName = returnedPlace.features[0].text;
@@ -35,22 +34,21 @@
 
         $map.on('zoomend', function() {
             $item.zoom = $map.getZoom();
-            console.log(get(item));
+            $item.bounds = $map.getBounds();
+            $item.center = [$item.bounds.getCenter().lat, $item.bounds.getCenter().lng];
+            console.log($item.center)
+        });
+
+        $map.on('moveend', function() {
+            $item.zoom = $map.getZoom();
+            $item.bounds = $map.getBounds();
+            $item.center = [$item.bounds.getCenter().lat, $item.bounds.getCenter().lng];
+            console.log($item.center)
         });
 
         document.getElementById("city-text").addEventListener("input", function() {
             console.log($item.placeName);
         }, false);
-
-        // $map = new Map({
-        //     container: div,
-        //     style: 'http://localhost:8080/styles/toner/{z}/{x}/{y}.png',
-        //     // accessToken: 'pk.eyJ1IjoiYmlza3dpa21hbiIsImEiOiJjaWxidzVlcGQxcmtxdWJrbjQ2Zng3bWN5In0.KcfLaovMGcEZkl6cyU6_Hw',
-        //     center: [139.77, 35.68],
-        //     zoom: 11,
-        //     attributionControl: false
-        // });
-        // $map.addControl(new NavigationControl(), 'top-left');
 
     });
 </script>
