@@ -1,10 +1,12 @@
 <script>
     import * as L from 'leaflet';
     // import {Map, NavigationControl} from 'maplibre-gl';
+    import * as htmlToImage from 'html-to-image';
+    import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+
     import '../../../node_modules/leaflet/dist/leaflet.css';
     import { onMount } from 'svelte';
     import { place, item, map } from '../../stores/stores.js';
-    import { get } from "svelte/store";
 
     import Layout from './Layout.svelte';
 
@@ -23,6 +25,12 @@
         L.tileLayer('http://localhost:8080/styles/toner/{z}/{x}/{y}@2x.webp').addTo($map);
         // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo($map);
 
+        const getMapData = () => {
+            $item.zoom = $map.getZoom();
+            $item.bounds = $map.getBounds();
+            $item.center = [$item.bounds.getCenter().lat, $item.bounds.getCenter().lng];
+        }
+
         place.subscribe(async () => {
             const returnedPlace = await $place;
             const center = [returnedPlace.features[0].geometry.coordinates[1],returnedPlace.features[0].geometry.coordinates[0]];
@@ -33,21 +41,14 @@
 	    });
 
         $map.on('zoomend', function() {
-            $item.zoom = $map.getZoom();
-            $item.bounds = $map.getBounds();
-            $item.center = [$item.bounds.getCenter().lat, $item.bounds.getCenter().lng];
-            console.log($item.center)
+            getMapData();
         });
 
         $map.on('moveend', function() {
-            $item.zoom = $map.getZoom();
-            $item.bounds = $map.getBounds();
-            $item.center = [$item.bounds.getCenter().lat, $item.bounds.getCenter().lng];
-            console.log($item.center)
+            getMapData();
         });
 
         document.getElementById("city-text").addEventListener("input", function() {
-            console.log($item.placeName);
         }, false);
 
     });

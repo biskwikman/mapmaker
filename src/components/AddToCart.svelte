@@ -1,11 +1,26 @@
 <script>
+    import * as htmlToImage from 'html-to-image';
+    import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+
     import { cart } from '../stores/stores.js';
     import { item } from '../stores/stores.js';
 
-    const onAddToCartClick = () => {
+    // make image of the map 
+    const mapImage = () => htmlToImage.toJpeg(document.getElementById('map'), {quality: 0.50})
+        .then(function (dataUrl) {
+            let img = new Image();
+            img.src = dataUrl;
+            $item.image = dataUrl;
+            console.log('item',$item);
+        }).catch(function (error) {
+            console.error('oops, something went wrong!', error);
+        });
+
+    // add item to cart
+    const onAddToCartClick = async () => {
+        await mapImage();
         const itemVal = Object.assign({},$item);
         $cart = [...$cart, itemVal];
-        console.log($cart);
     }
 </script>
 
