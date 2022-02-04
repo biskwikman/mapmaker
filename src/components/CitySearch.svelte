@@ -1,6 +1,6 @@
 <script>
-    import Map from './Map.svelte';
-    import { place } from './stores.js';
+    import Map from '../components/Map.svelte';
+    import { place } from '../stores.js';
 
     let locationInput = 'tokyo';
 
@@ -10,10 +10,10 @@
         place.set(data);
     }
 
-    const subscription = place.subscribe(async () => {
-        console.log('subscribe', await $place);
-        return await $place;
-    });
+    // const subscription = place.subscribe(async () => {
+    //     console.log('subscribe', await $place);
+    //     return await $place;
+    // });
     
 </script>
 
@@ -27,5 +27,3 @@
 {:catch error}
     <p>{error.message}</p>
 {/await}
-
-<Map/>

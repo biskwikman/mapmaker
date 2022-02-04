@@ -1,8 +1,8 @@
 <script>
     import * as L from 'leaflet';
-    import '../node_modules/leaflet/dist/leaflet.css';
+    import '../../node_modules/leaflet/dist/leaflet.css';
     import { onMount } from 'svelte';
-    import { place } from './stores.js';
+    import { place } from '../stores.js';
     import 'leaflet.vectorgrid';
 
     let div = null;
@@ -51,7 +51,6 @@
             zoom: 10
         });
 
-        // L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         const pbfLayer = L.vectorGrid.protobuf(pbfUrl,vectorTileOptions).on('click',function(e) {
             console.log(e.layer);
             L.DomEvent.stop(e);
@@ -79,15 +78,19 @@
 </script>
 
 <style lang='scss'>
-    #grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-auto-rows: minmax(100px, auto);
+    #map-container {
+        float: left;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 60vw;
+        height: 70vh;
     }
+
     .map-item {
-        grid-column: 2 / 12;
-        grid-row: 1 / 4;
-        width: 100%;
+        position: absolute;
+        width: 80%;
+        height: 100%;
     }
 
     #map {
@@ -95,12 +98,31 @@
     }
 
     #map-cover {
+        display: flex;
+        justify-content: center;
         pointer-events: none;
+        height: 50%;
+        align-self: flex-end;
         background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
         z-index: 2;
     }
+
+    #map-text {
+        align-self: flex-end;
+    }
 </style>
-<!-- <div id="grid"> -->
-    <div id="map-cover" class="map-item"></div>
+<div id="map-container">
+    <div id="map-cover" class="map-item">
+        <div id="map-text">
+            {#await $place}
+                <h2>...waiting</h2>
+            {:then place}
+                <h2>{place[0].display_name.split(',')[0]}</h2>
+                <h3>{place[0].lat}, {place[0].lon}</h3>
+            {:catch error}
+                <h2>{error.message}</h2>
+            {/await}
+        </div> 
+    </div>
     <div bind:this={div} id='map' class="map-item"></div>
-<!-- </div> -->
+</div>

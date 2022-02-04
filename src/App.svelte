@@ -1,25 +1,32 @@
 <script>
 	import { Router, Link, Route } from "svelte-routing";
-	import CitySearch from './CitySearch.svelte';
+	import CitySearch from './components/CitySearch.svelte';
+	import Navbar from './components/Navbar.svelte';
+	import Map from './components/Map.svelte';
 </script>
 
+<Navbar />
 <main>
-	<CitySearch />
+	<div class="split">
+		<Map />
+		<div>
+			<CitySearch />
+		</div>
+	</div>
 </main>
 
 <style lang="scss">
 	main {
 		text-align: center;
-		padding: 1em;
 		margin: 0 auto;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		align-items: center;
 	}
-
-	// @media (min-width: 640px) {
-	// 	main {
-	// 		max-width: none;
-	// 	}
-	// }
+	.split {
+		width: 100vw;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
 </style>
