@@ -1,11 +1,9 @@
 const express = require('express');
-const router = express.Router();
 const app = express();
 const port = process.env.PORT || 5050;
 const cors = require('cors');
 const path = require('path');
 app.use(cors());
-app.use("/",router);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -22,6 +20,7 @@ app.listen(port, () => {
 
 // trying to catch getMap request
 app.post('/getMap', (req,res) => {
-   console.log('request body: ', req.body);
-   res.send('MAPTHING');
+   console.log(req.body);
+   let body = req.body;
+   res.json(body);
 });

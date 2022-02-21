@@ -3,17 +3,17 @@ import Navbar from '../components/Navbar.svelte';
 import CartItems from '../components/CartItems.svelte';
 import { cart } from '../stores/stores.js';
 
+//Send car to server and get cart back
 const getMap = async () => {
-    const res = await fetch('/getMap', {
+    let res = await fetch('/getMap', {
         method: 'POST',
         body: JSON.stringify($cart),
         headers: {
             'Content-Type': 'application/json'
         }
     });
-    // I think this part is wrong
-    const json = await res;
-    console.log(json);
+    let jsonRes = await res.json();
+    console.log(jsonRes);
 }
 
 </script>
