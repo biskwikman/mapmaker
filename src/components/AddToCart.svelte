@@ -1,21 +1,19 @@
 <script>
-    import * as htmlToImage from 'html-to-image';
-    import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-
+    import { toJpeg } from 'html-to-image';
     import { cart } from '../stores/stores.js';
     import { item } from '../stores/stores.js';
     import { map } from '../stores/stores.js';
 
     // make image of the map 
     const mapImage = () => 
-        htmlToImage.toJpeg(document.getElementById('map'), {quality: 0.50})
+        toJpeg(document.getElementById('map'), {quality: 0.50})
         .then(function (dataUrl) {
             let img = new Image();
             img.src = dataUrl;
             $item.image = dataUrl;
             console.log('item',$item);
         }).catch(function (error) {
-            console.error('oops, something went wrong!', error);
+            console.error('cart image creation error', error);
         });
 
     // add item to cart

@@ -18,9 +18,18 @@ app.listen(port, () => {
    console.log(`Server is up at port ${port}`);
 });
 
+// get map background
+// need to install node-fetch
+const getBackground = (body) => {
+   fetch(`http://localhost:8080/styles/toner/static/${body.center[1]},${body.center[0]},${body.zoom}/210x297@2x.jpg`)
+      .then(response => response.json())
+      .then(data => console.log(data));
+}
+
 // trying to catch getMap request
-app.post('/getMap', (req,res) => {
+app.post('/getMap', async (req,res) => {
    console.log(req.body);
-   let body = req.body;
+   const body = req.body;
+   getBackground(body);
    res.json(body);
 });
