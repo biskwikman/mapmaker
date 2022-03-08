@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import http from 'http';
+
 const app = express();
 const port = process.env.PORT || 5050;
-const cors = require('cors');
-const path = require('path');
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
+app.use(express.json());
 app.use(express.static('public'));
 
 // sends correct page no matter where you start
@@ -18,18 +18,19 @@ app.listen(port, () => {
    console.log(`Server is up at port ${port}`);
 });
 
+const file = fs.createWriteStream("./file.jpg");
 // get map background
-// need to install node-fetch
+// need to install node-fetch. Or do I?
 const getBackground = (body) => {
-   fetch(`http://localhost:8080/styles/toner/static/${body.center[1]},${body.center[0]},${body.zoom}/210x297@2x.jpg`)
-      .then(response => response.json())
-      .then(data => console.log(data));
+   const request = http.get(`http://localhost:8080/styles/toner/static/${body.center[1]},${body.center[0]},${body.zoom}/210x297@2x.jpg`, function(response) {
+      response.pipe(file);
+   });
 }
 
 // trying to catch getMap request
 app.post('/getMap', async (req,res) => {
-   console.log(req.body);
+   // console.log(req.body);
    const body = req.body;
    getBackground(body);
-   res.json(body);
+   res.json('test');
 });

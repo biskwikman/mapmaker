@@ -7,7 +7,6 @@ import { cart } from '../stores/stores.js';
 
 //Send car to server and get cart back
 const getMap = async () => {
-    console.log($cart);
     let res = await fetch('/getMap', {
         method: 'POST',
         //Sending from cart for now
@@ -17,7 +16,7 @@ const getMap = async () => {
         }
     });
     let jsonRes = await res.json();
-    console.log(jsonRes);
+    console.log('response: ', jsonRes);
 }
 
 </script>

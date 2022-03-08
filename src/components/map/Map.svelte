@@ -1,13 +1,8 @@
 <script>
     import * as L from 'leaflet';
-    // import {Map, NavigationControl} from 'maplibre-gl';
-    import * as htmlToImage from 'html-to-image';
-    import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-
     import '../../../node_modules/leaflet/dist/leaflet.css';
     import { onMount } from 'svelte';
     import { place, item, map } from '../../stores/stores.js';
-
     import Layout from './Layout.svelte';
 
     let div = null;

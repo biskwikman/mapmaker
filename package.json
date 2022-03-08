@@ -1,6 +1,7 @@
 {
   "name": "map-maker",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "rollup -c",
@@ -20,7 +21,6 @@
     "svelte-preprocess": "^4.7.3"
   },
   "dependencies": {
-    "@mapbox/node-pre-gyp": "^1.0.7",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "html-to-image": "^1.9.0",

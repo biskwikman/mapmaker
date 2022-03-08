@@ -11,7 +11,6 @@
             let img = new Image();
             img.src = dataUrl;
             $item.image = dataUrl;
-            console.log('item',$item);
         }).catch(function (error) {
             console.error('cart image creation error', error);
         });
