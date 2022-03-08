@@ -1,0 +1,35 @@
+{
+    "options": {
+      "paths": {
+        "root": "",
+        "styles": "styles",
+        "mbtiles": ""
+      },
+      "domains": [
+        "localhost:8080",
+        "127.0.0.1:8080"
+      ],
+      "formatQuality": {
+        "jpeg": 100,
+        "webp": 80,
+        "png": 100
+      },
+      "maxScaleFactor": 9,
+      "maxSize": 4096,
+      "pbfAlias": "pbf",
+      "serveAllFonts": false,
+      "serveAllStyles": false,
+      "serveStaticMaps": true,
+      "tileMargin": 0
+    },
+    "styles": {
+        "toner": {
+            "style": "toner.json"
+        }
+    },
+    "data": {
+      "japan": {
+        "mbtiles": "japan.mbtiles"
+      }
+    }
+  }
