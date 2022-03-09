@@ -25,6 +25,7 @@
     "express": "^4.17.2",
     "html-to-image": "^1.9.0",
     "leaflet": "^1.7.1",
+    "nodemailer": "^6.7.2",
     "page": "^1.11.6",
     "sirv-cli": "^1.0.0",
     "svelte-asyncable": "^2.0.3"
